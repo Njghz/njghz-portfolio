@@ -1,0 +1,584 @@
+<!doctype html>
+<html lang="ru">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta
+      name="description"
+      content="Современная демонстрационная панель управления Discord-ботом."
+    />
+    <meta name="theme-color" content="#090b12" />
+    <meta name="color-scheme" content="dark" />
+    <title>Discord Bot — Панель управления</title>
+    <link rel="icon" href="./favicon.svg" type="image/svg+xml" />
+    <link rel="stylesheet" href="./styles.css" />
+    <script src="./script.js" defer></script>
+  </head>
+
+  <body data-bot-status="online">
+    <a class="skip-link" href="#main-content">Перейти к содержимому</a>
+
+    <div class="app-shell">
+      <div class="sidebar-backdrop" data-sidebar-close></div>
+
+      <aside class="sidebar" id="sidebar" aria-label="Основная навигация">
+        <div class="brand">
+          <div class="brand__mark brand__mark--small" aria-hidden="true">
+            <svg viewBox="0 0 48 48" role="img">
+              <path
+                fill="currentColor"
+                d="M37.5 10.2A21 21 0 0 0 30 8l-.5 1.1a19.4 19.4 0 0 0-11 0L18 8a21 21 0 0 0-7.5 2.2C6.1 17.3 4.7 24.2 5.2 31a21.2 21.2 0 0 0 6.5 3.3l1.6-2.2-2-1a.5.5 0 0 1-.1-.8 15 15 0 0 0 12.8 0 .5.5 0 0 1-.1.8l-2 1 1.6 2.2A21.2 21.2 0 0 0 30 31c.5-6.8-.9-13.7-5.3-20.8Z"
+              />
+              <circle cx="17" cy="24" r="3.1" fill="#0b0d14" />
+              <circle cx="31" cy="24" r="3.1" fill="#0b0d14" />
+              <path
+                d="M21 30c1.8 1.3 4.2 1.3 6 0"
+                fill="none"
+                stroke="#0b0d14"
+                stroke-linecap="round"
+                stroke-width="2.4"
+              />
+            </svg>
+          </div>
+          <div>
+            <strong>Discord Bot</strong>
+            <span>Control Center</span>
+          </div>
+        </div>
+
+        <div class="sidebar__label">Рабочее пространство</div>
+        <nav class="nav-list">
+          <button
+            class="nav-item is-active"
+            type="button"
+            data-section-target="overview"
+            aria-current="page"
+          >
+            <svg viewBox="0 0 24 24" aria-hidden="true">
+              <path d="M4 13h6V4H4v9Zm0 7h6v-5H4v5Zm10 0h6v-9h-6v9Zm0-16v5h6V4h-6Z" />
+            </svg>
+            <span>Обзор</span>
+          </button>
+          <button class="nav-item" type="button" data-dialog-open="commands-dialog">
+            <svg viewBox="0 0 24 24" aria-hidden="true">
+              <path d="m9.4 18.6-6-2.7A2 2 0 0 1 2 14V5a2 2 0 0 1 2-2h3.5L9.5 1h2l2 2h6A2 2 0 0 1 21 5v9a2 2 0 0 1-1.4 1.9l-6 2.7-4.2-1.5v3H7v-1.4l2.4-1Z" />
+            </svg>
+            <span>Команды</span>
+            <span class="nav-item__badge">3</span>
+          </button>
+          <button class="nav-item" type="button" data-dialog-open="control-dialog">
+            <svg viewBox="0 0 24 24" aria-hidden="true">
+              <path d="M3 5h8v6H3V5Zm10 0h8v3h-8V5ZM3 13h3v6H3v-6Zm5 0h13v3H8v-3Zm-5 5h8v4H3v-4Zm10 0h8v6h-8v-6Z" />
+            </svg>
+            <span>Панель управления</span>
+          </button>
+        </nav>
+
+        <div class="sidebar__label sidebar__label--secondary">Информация</div>
+        <nav class="nav-list">
+          <button class="nav-item" type="button" data-dialog-open="commands-dialog">
+            <svg viewBox="0 0 24 24" aria-hidden="true">
+              <path d="M6 2h9l5 5v15H6a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2Zm8 1.5V8h4.5L14 3.5ZM8 12h8v2H8v-2Zm0 4h8v2H8v-2Z" />
+            </svg>
+            <span>Документация</span>
+          </button>
+        </nav>
+
+        <div class="sidebar__spacer"></div>
+
+        <div class="pages-badge">
+          <div class="pages-badge__icon" aria-hidden="true">
+            <svg viewBox="0 0 24 24">
+              <path d="M12 2 4 6v12l8 4 8-4V6l-8-4Zm0 2.2 5.8 2.9L12 10 6.2 7.1 12 4.2ZM6 8.8l5 2.5v8.1l-5-2.5V8.8Zm7 10.6v-8.1l5-2.5v8.1l-5 2.5Z" />
+            </svg>
+          </div>
+          <div>
+            <strong>GitHub Pages</strong>
+            <span>Фронтенд готов к публикации</span>
+          </div>
+        </div>
+
+        <div class="sidebar-profile">
+          <div class="sidebar-profile__avatar">DB</div>
+          <div>
+            <strong>Discord Bot</strong>
+            <span>Демо-панель</span>
+          </div>
+          <span class="online-dot" aria-hidden="true"></span>
+        </div>
+      </aside>
+
+      <main class="main" id="main-content">
+        <header class="topbar">
+          <div class="topbar__left">
+            <button
+              class="icon-button menu-toggle"
+              type="button"
+              aria-label="Открыть меню"
+              aria-controls="sidebar"
+              aria-expanded="false"
+              data-sidebar-open
+            >
+              <svg viewBox="0 0 24 24" aria-hidden="true">
+                <path d="M4 6h16v2H4V6Zm0 5h16v2H4v-2Zm0 5h16v2H4v-2Z" />
+              </svg>
+            </button>
+            <div class="breadcrumbs">
+              <span>Панель</span>
+              <svg viewBox="0 0 24 24" aria-hidden="true">
+                <path d="m9 5 7 7-7 7 1.4 1.4 8.4-8.4-8.4-8.4L9 5Z" />
+              </svg>
+              <strong>Обзор</strong>
+            </div>
+          </div>
+
+          <div class="topbar__actions">
+            <div class="demo-badge">
+              <span class="demo-badge__dot" aria-hidden="true"></span>
+              Демо-режим
+            </div>
+            <button class="icon-button" type="button" data-refresh aria-label="Обновить демо-данные">
+              <svg class="refresh-icon" viewBox="0 0 24 24" aria-hidden="true">
+                <path d="M19.8 6.2V2.5L18 4.3A9 9 0 1 0 21 12h-2a7 7 0 1 1-2-4.9l-2.2 2.2h5v-3Z" />
+              </svg>
+            </button>
+          </div>
+        </header>
+
+        <div class="content">
+          <section class="hero" id="overview" aria-labelledby="page-title">
+            <div class="hero__copy">
+              <div class="eyebrow">
+                <span class="eyebrow__line"></span>
+                Обзор системы
+              </div>
+              <h1 id="page-title">Discord <span>Bot</span></h1>
+              <p>
+                Управляйте ботом, отслеживайте состояние и просматривайте доступные
+                команды в одном месте.
+              </p>
+              <div class="hero__actions">
+                <button class="button button--primary" type="button" data-dialog-open="add-dialog">
+                  <svg viewBox="0 0 24 24" aria-hidden="true">
+                    <path d="M19 14a7 7 0 0 0 .1-1V5a2 2 0 0 0-2-2h-4V1L7 6l5.1 5V8H17v6h2Z" />
+                    <path d="M5 8a3 3 0 0 0-3 3v6a3 3 0 0 0 3 3h5v-2H5a1 1 0 0 1-1-1v-6a1 1 0 0 1 1-1h3V8H5Z" />
+                  </svg>
+                  Добавить бота на сервер
+                </button>
+                <button class="button button--secondary" type="button" data-dialog-open="control-dialog">
+                  <svg viewBox="0 0 24 24" aria-hidden="true">
+                    <path d="M3 5h8v6H3V5Zm10 0h8v3h-8V5ZM3 13h3v6H3v-6Zm5 0h13v3H8v-3Zm-5 5h8v4H3v-4Zm10 0h8v6h-8v-6Z" />
+                  </svg>
+                  Панель управления
+                </button>
+              </div>
+            </div>
+
+            <div class="hero__visual" aria-hidden="true">
+              <div class="hero-orbit hero-orbit--outer"></div>
+              <div class="hero-orbit hero-orbit--inner"></div>
+              <div class="hero-glow"></div>
+              <div class="hero-bot-card">
+                <div class="hero-bot-card__top">
+                  <div class="bot-avatar">
+                    <svg viewBox="0 0 48 48">
+                      <path
+                        fill="currentColor"
+                        d="M37.5 10.2A21 21 0 0 0 30 8l-.5 1.1a19.4 19.4 0 0 0-11 0L18 8a21 21 0 0 0-7.5 2.2C6.1 17.3 4.7 24.2 5.2 31a21.2 21.2 0 0 0 6.5 3.3l1.6-2.2-2-1a.5.5 0 0 1-.1-.8 15 15 0 0 0 12.8 0 .5.5 0 0 1-.1.8l-2 1 1.6 2.2A21.2 21.2 0 0 0 30 31c.5-6.8-.9-13.7-5.3-20.8Z"
+                      />
+                      <circle cx="17" cy="24" r="3.1" fill="#5865f2" />
+                      <circle cx="31" cy="24" r="3.1" fill="#5865f2" />
+                      <path
+                        d="M21 30c1.8 1.3 4.2 1.3 6 0"
+                        fill="none"
+                        stroke="#5865f2"
+                        stroke-linecap="round"
+                        stroke-width="2.4"
+                      />
+                    </svg>
+                  </div>
+                  <span class="status-pill is-online">
+                    <span class="status-pill__dot"></span>
+                    <span data-status-label>Online</span>
+                  </span>
+                </div>
+                <strong>Discord Bot</strong>
+                <span>Всё под контролем</span>
+                <div class="mini-wave" aria-hidden="true">
+                  <i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i>
+                </div>
+              </div>
+            </div>
+          </section>
+
+          <section class="dashboard-grid" aria-label="Состояние Discord-бота">
+            <article class="panel bot-panel">
+              <div class="panel__glow"></div>
+              <div class="bot-panel__header">
+                <div class="bot-panel__identity">
+                  <div class="bot-avatar bot-avatar--large">
+                    <svg viewBox="0 0 48 48" aria-hidden="true">
+                      <path
+                        fill="currentColor"
+                        d="M37.5 10.2A21 21 0 0 0 30 8l-.5 1.1a19.4 19.4 0 0 0-11 0L18 8a21 21 0 0 0-7.5 2.2C6.1 17.3 4.7 24.2 5.2 31a21.2 21.2 0 0 0 6.5 3.3l1.6-2.2-2-1a.5.5 0 0 1-.1-.8 15 15 0 0 0 12.8 0 .5.5 0 0 1-.1.8l-2 1 1.6 2.2A21.2 21.2 0 0 0 30 31c.5-6.8-.9-13.7-5.3-20.8Z"
+                      />
+                      <circle cx="17" cy="24" r="3.1" fill="#10121b" />
+                      <circle cx="31" cy="24" r="3.1" fill="#10121b" />
+                      <path
+                        d="M21 30c1.8 1.3 4.2 1.3 6 0"
+                        fill="none"
+                        stroke="#10121b"
+                        stroke-linecap="round"
+                        stroke-width="2.4"
+                      />
+                    </svg>
+                  </div>
+                  <div>
+                    <div class="bot-panel__name-row">
+                      <h2>Discord Bot</h2>
+                      <span class="verified-badge" title="Демо-версия">
+                        <svg viewBox="0 0 24 24" aria-hidden="true">
+                          <path d="m9.2 16.6-4.1-4.1 1.4-1.4 2.7 2.7 8-8 1.4 1.4-9.4 9.4Z" />
+                        </svg>
+                      </span>
+                    </div>
+                    <p>#bot-control-center</p>
+                  </div>
+                </div>
+                <button
+                  class="status-badge is-online"
+                  type="button"
+                  data-status-toggle
+                  aria-label="Переключить демонстрационный статус"
+                  aria-pressed="false"
+                >
+                  <span class="status-badge__dot"></span>
+                  <span data-status-label>Online</span>
+                </button>
+              </div>
+
+              <div class="bot-panel__message">
+                <div class="message-icon">
+                  <svg viewBox="0 0 24 24" aria-hidden="true">
+                    <path d="M5 3h14a2 2 0 0 1 2 2v10a2 2 0 0 1-2 2h-7l-5 4v-4H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2Zm2 5v2h10V8H7Zm0 4v2h7v-2H7Z" />
+                  </svg>
+                </div>
+                <div>
+                  <span class="bot-panel__message-label">Текущее состояние</span>
+                  <h3 id="bot-state-title">Бот на связи и готов к работе</h3>
+                  <p id="bot-state-description">
+                    Все демонстрационные модули работают штатно.
+                  </p>
+                </div>
+              </div>
+
+              <div class="bot-panel__tags">
+                <span>
+                  <svg viewBox="0 0 24 24" aria-hidden="true">
+                    <path d="M12 2 4 5v6c0 5 3.4 9.7 8 11 4.6-1.3 8-6 8-11V5l-8-3Zm4 8-5 5-3-3 1.4-1.4 1.6 1.6 3.6-3.6L16 10Z" />
+                  </svg>
+                  Безопасная демонстрация
+                </span>
+                <span>
+                  <svg viewBox="0 0 24 24" aria-hidden="true">
+                    <path d="M12 2a10 10 0 1 0 10 10A10 10 0 0 0 12 2Zm1 5v11h-2V7h2Zm-4 4V9h2v2H9Zm6 0V9h2v2h-2Z" />
+                  </svg>
+                  GitHub Pages
+                </span>
+              </div>
+            </article>
+
+            <div class="stats-column">
+              <article class="stat-card">
+                <div class="stat-card__icon stat-card__icon--green">
+                  <svg viewBox="0 0 24 24" aria-hidden="true">
+                    <path d="M12 2a10 10 0 1 0 10 10A10 10 0 0 0 12 2Zm0 18a8 8 0 1 1 8-8 8 8 0 0 1-8 8Zm1-13h-2v6l5.2 3.1 1-1.7-4.2-2.5V7Z" />
+                  </svg>
+                </div>
+                <div>
+                  <span>Время работы</span>
+                  <strong>24ч 18м</strong>
+                </div>
+                <span class="trend trend--up">+4.2%</span>
+              </article>
+              <article class="stat-card">
+                <div class="stat-card__icon stat-card__icon--blue">
+                  <svg viewBox="0 0 24 24" aria-hidden="true">
+                    <path d="M3 3h18v2H3V3Zm3 5h12v2H6V8Zm-3 5h18v2H3v-2Zm3 5h12v2H6v-2Z" />
+                  </svg>
+                </div>
+                <div>
+                  <span>Задержка</span>
+                  <strong>42 мс</strong>
+                </div>
+                <span class="trend trend--neutral">Демо</span>
+              </article>
+              <article class="stat-card">
+                <div class="stat-card__icon stat-card__icon--purple">
+                  <svg viewBox="0 0 24 24" aria-hidden="true">
+                    <path d="m9.4 18.6-6-2.7A2 2 0 0 1 2 14V5a2 2 0 0 1 2-2h3.5L9.5 1h2l2 2h6A2 2 0 0 1 21 5v9a2 2 0 0 1-1.4 1.9l-6 2.7-4.2-1.5v3H7v-1.4l2.4-1Z" />
+                  </svg>
+                </div>
+                <div>
+                  <span>Команды</span>
+                  <strong>3 активные</strong>
+                </div>
+                <button class="trend trend--link" type="button" data-dialog-open="commands-dialog">
+                  Открыть
+                </button>
+              </article>
+            </div>
+          </section>
+
+          <section class="lower-grid" aria-label="Команды и подключение">
+            <article class="panel commands-preview">
+              <div class="panel-heading">
+                <div>
+                  <span class="panel-heading__eyebrow">Быстрый доступ</span>
+                  <h2>Команды бота</h2>
+                </div>
+                <button class="text-button" type="button" data-dialog-open="commands-dialog">
+                  Все команды
+                  <svg viewBox="0 0 24 24" aria-hidden="true">
+                    <path d="m9 5 7 7-7 7 1.4 1.4 8.4-8.4-8.4-8.4L9 5Z" />
+                  </svg>
+                </button>
+              </div>
+
+              <div class="command-list">
+                <button class="command-row" type="button" data-dialog-open="commands-dialog">
+                  <span class="command-row__slash">/</span>
+                  <span class="command-row__body">
+                    <strong>ping</strong>
+                    <small>Проверяет доступность бота</small>
+                  </span>
+                  <span class="command-row__reply">Pong!</span>
+                  <svg viewBox="0 0 24 24" aria-hidden="true">
+                    <path d="m9 5 7 7-7 7 1.4 1.4 8.4-8.4-8.4-8.4L9 5Z" />
+                  </svg>
+                </button>
+                <button class="command-row" type="button" data-dialog-open="commands-dialog">
+                  <span class="command-row__slash">/</span>
+                  <span class="command-row__body">
+                    <strong>menu</strong>
+                    <small>Открывает интерактивное меню</small>
+                  </span>
+                  <span class="command-row__tag">Интерактив</span>
+                  <svg viewBox="0 0 24 24" aria-hidden="true">
+                    <path d="m9 5 7 7-7 7 1.4 1.4 8.4-8.4-8.4-8.4L9 5Z" />
+                  </svg>
+                </button>
+                <button class="command-row" type="button" data-dialog-open="commands-dialog">
+                  <span class="command-row__slash">/</span>
+                  <span class="command-row__body">
+                    <strong>help</strong>
+                    <small>Показывает список команд</small>
+                  </span>
+                  <span class="command-row__tag">Справка</span>
+                  <svg viewBox="0 0 24 24" aria-hidden="true">
+                    <path d="m9 5 7 7-7 7 1.4 1.4 8.4-8.4-8.4-8.4L9 5Z" />
+                  </svg>
+                </button>
+              </div>
+            </article>
+
+            <article class="panel connect-card">
+              <div class="connect-card__visual" aria-hidden="true">
+                <div class="connect-card__rings"></div>
+                <div class="connect-card__icon">
+                  <svg viewBox="0 0 24 24">
+                    <path d="M19 14a7 7 0 0 0 .1-1V5a2 2 0 0 0-2-2h-4V1L7 6l5.1 5V8H17v6h2Z" />
+                    <path d="M5 8a3 3 0 0 0-3 3v6a3 3 0 0 0 3 3h5v-2H5a1 1 0 0 1-1-1v-6a1 1 0 0 1 1-1h3V8H5Z" />
+                  </svg>
+                </div>
+              </div>
+              <span class="panel-heading__eyebrow">Подключение</span>
+              <h2>Добавьте бота на сервер</h2>
+              <p>
+                В демо-версии авторизация отключена. Настоящий Discord OAuth и токены
+                не используются.
+              </p>
+              <button class="button button--primary button--full" type="button" data-dialog-open="add-dialog">
+                Добавить бота на сервер
+                <svg viewBox="0 0 24 24" aria-hidden="true">
+                  <path d="m9 5 7 7-7 7 1.4 1.4 8.4-8.4-8.4-8.4L9 5Z" />
+                </svg>
+              </button>
+              <span class="connect-card__note">
+                <svg viewBox="0 0 24 24" aria-hidden="true">
+                  <path d="M12 2 4 5v6c0 5 3.4 9.7 8 11 4.6-1.3 8-6 8-11V5l-8-3Zm-1 14-4-4 1.4-1.4L11 13.2l4.6-4.6L17 10l-6 6Z" />
+                </svg>
+                Никаких секретных данных в браузере
+              </span>
+            </article>
+          </section>
+
+          <footer class="page-footer">
+            <p>© <span id="current-year"></span> Discord Bot Panel</p>
+            <span>Статическая демонстрация · GitHub Pages Ready</span>
+          </footer>
+        </div>
+      </main>
+    </div>
+
+    <dialog class="modal" id="add-dialog" aria-labelledby="add-dialog-title">
+      <div class="modal__header">
+        <div class="modal__icon modal__icon--discord">
+          <svg viewBox="0 0 24 24" aria-hidden="true">
+            <path d="M19 14a7 7 0 0 0 .1-1V5a2 2 0 0 0-2-2h-4V1L7 6l5.1 5V8H17v6h2Z" />
+            <path d="M5 8a3 3 0 0 0-3 3v6a3 3 0 0 0 3 3h5v-2H5a1 1 0 0 1-1-1v-6a1 1 0 0 1 1-1h3V8H5Z" />
+          </svg>
+        </div>
+        <button class="icon-button modal__close" type="button" aria-label="Закрыть" data-dialog-close>
+          <svg viewBox="0 0 24 24" aria-hidden="true">
+            <path d="m6.4 5 5.6 5.6L17.6 5 19 6.4 13.4 12 19 17.6 17.6 19 12 13.4 6.4 19 5 17.6 10.6 12 5 6.4 6.4 5Z" />
+          </svg>
+        </button>
+      </div>
+      <h2 id="add-dialog-title">Добавить бота на сервер</h2>
+      <p class="modal__lead">
+        Здесь будет экран подтверждения OAuth Discord. В текущей версии он безопасно
+        отключён.
+      </p>
+      <div class="info-box">
+        <div class="info-box__icon">
+          <svg viewBox="0 0 24 24" aria-hidden="true">
+            <path d="M11 17h2v2h-2v-2Zm1-15a10 10 0 1 0 10 10A10 10 0 0 0 12 2Zm0 18a8 8 0 1 1 8-8 8 8 0 0 1-8 8Zm-1-11h2V7h-2v2Z" />
+          </svg>
+        </div>
+        <div>
+          <strong>Демонстрационный режим</strong>
+          <p>
+            На сайте нет Discord-токена, OAuth-ссылки и запросов к API Discord.
+          </p>
+        </div>
+      </div>
+      <div class="modal__actions">
+        <button class="button button--secondary" type="button" data-dialog-close>Отмена</button>
+        <button class="button button--primary" type="button" data-demo-action="oauth">
+          Продолжить в демо
+        </button>
+      </div>
+    </dialog>
+
+    <dialog class="modal modal--wide" id="commands-dialog" aria-labelledby="commands-dialog-title">
+      <div class="modal__header">
+        <div>
+          <span class="panel-heading__eyebrow">Справочник</span>
+          <h2 id="commands-dialog-title">Команды бота</h2>
+        </div>
+        <button class="icon-button modal__close" type="button" aria-label="Закрыть" data-dialog-close>
+          <svg viewBox="0 0 24 24" aria-hidden="true">
+            <path d="m6.4 5 5.6 5.6L17.6 5 19 6.4 13.4 12 19 17.6 17.6 19 12 13.4 6.4 19 5 17.6 10.6 12 5 6.4 6.4 5Z" />
+          </svg>
+        </button>
+      </div>
+      <p class="modal__lead">Три команды, доступные в Discord. Нажмите на команду, чтобы скопировать её.</p>
+      <div class="modal-command-list">
+        <button class="modal-command" type="button" data-copy-command="/ping">
+          <span class="modal-command__icon">/</span>
+          <span><strong>/ping</strong><small>Проверяет, отвечает ли бот. Ответ: Pong!</small></span>
+          <span class="copy-label">Копировать</span>
+        </button>
+        <button class="modal-command" type="button" data-copy-command="/menu">
+          <span class="modal-command__icon">/</span>
+          <span><strong>/menu</strong><small>Открывает красивое интерактивное меню.</small></span>
+          <span class="copy-label">Копировать</span>
+        </button>
+        <button class="modal-command" type="button" data-copy-command="/help">
+          <span class="modal-command__icon">/</span>
+          <span><strong>/help</strong><small>Показывает список доступных команд.</small></span>
+          <span class="copy-label">Копировать</span>
+        </button>
+      </div>
+    </dialog>
+
+    <dialog class="modal modal--wide" id="control-dialog" aria-labelledby="control-dialog-title">
+      <div class="modal__header">
+        <div>
+          <span class="panel-heading__eyebrow">Локальные настройки</span>
+          <h2 id="control-dialog-title">Панель управления</h2>
+        </div>
+        <button class="icon-button modal__close" type="button" aria-label="Закрыть" data-dialog-close>
+          <svg viewBox="0 0 24 24" aria-hidden="true">
+            <path d="m6.4 5 5.6 5.6L17.6 5 19 6.4 13.4 12 19 17.6 17.6 19 12 13.4 6.4 19 5 17.6 10.6 12 5 6.4 6.4 5Z" />
+          </svg>
+        </button>
+      </div>
+      <p class="modal__lead">Настройки сохраняются только в этом браузере и не связаны с Discord.</p>
+
+      <div class="settings-group">
+        <div class="settings-group__heading">
+          <div>
+            <strong>Статус бота</strong>
+            <span>Демонстрационный переключатель</span>
+          </div>
+          <div class="status-switch" role="group" aria-label="Демонстрационный статус бота">
+            <button class="is-selected" type="button" data-status-control="online" aria-pressed="true">
+              <span></span> Online
+            </button>
+            <button type="button" data-status-control="offline" aria-pressed="false">
+              <span></span> Offline
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <div class="settings-group settings-group--rows">
+        <label class="setting-row" for="compact-mode">
+          <span>
+            <strong>Компактный интерфейс</strong>
+            <small>Уменьшает отступы и высоту карточек</small>
+          </span>
+          <span class="switch">
+            <input id="compact-mode" type="checkbox" data-setting-toggle="compact" />
+            <span class="switch__slider"></span>
+          </span>
+        </label>
+        <label class="setting-row" for="animations-toggle">
+          <span>
+            <strong>Анимации</strong>
+            <small>Плавные эффекты и индикаторы активности</small>
+          </span>
+          <span class="switch">
+            <input id="animations-toggle" type="checkbox" data-setting-toggle="animations" checked />
+            <span class="switch__slider"></span>
+          </span>
+        </label>
+      </div>
+
+      <div class="security-note">
+        <svg viewBox="0 0 24 24" aria-hidden="true">
+          <path d="M12 2 4 5v6c0 5 3.4 9.7 8 11 4.6-1.3 8-6 8-11V5l-8-3Zm0 3 5 1.9V11c0 3.5-2 6.5-5 7.8-3-1.3-5-4.3-5-7.8V6.9L12 5Z" />
+        </svg>
+        <span>Никогда не помещайте Discord-токен в HTML, CSS или JavaScript сайта.</span>
+      </div>
+
+      <div class="modal__actions">
+        <button class="button button--secondary" type="button" data-dialog-close>Отмена</button>
+        <button class="button button--primary" type="button" data-demo-action="save-settings">Сохранить</button>
+      </div>
+    </dialog>
+
+    <div class="toast-region" aria-live="polite" aria-atomic="true">
+      <div class="toast" role="status">
+        <div class="toast__icon">
+          <svg viewBox="0 0 24 24" aria-hidden="true">
+            <path d="m9.2 16.6-4.1-4.1 1.4-1.4 2.7 2.7 8-8 1.4 1.4-9.4 9.4Z" />
+          </svg>
+        </div>
+        <div>
+          <strong data-toast-title>Готово</strong>
+          <span data-toast-message>Настройки обновлены</span>
+        </div>
+        <button type="button" aria-label="Закрыть уведомление" data-toast-close>
+          <svg viewBox="0 0 24 24" aria-hidden="true">
+            <path d="m6.4 5 5.6 5.6L17.6 5 19 6.4 13.4 12 19 17.6 17.6 19 12 13.4 6.4 19 5 17.6 10.6 12 5 6.4 6.4 5Z" />
+          </svg>
+        </button>
+      </div>
+    </div>
+
+    <div class="sr-only" aria-live="polite" id="status-announcement"></div>
+  </body>
+</html>
