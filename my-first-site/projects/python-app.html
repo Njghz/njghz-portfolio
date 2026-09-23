@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="ru">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Трекер задач — Njighz</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Outfit:wght@600;700;800&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="../css/styles.css" />
+  </head>
+  <body>
+    <header class="header">
+      <div class="container header__inner">
+        <a class="logo" href="../index.html">Njighz<span>.</span></a>
+        <nav class="nav" aria-label="Навигация">
+          <a href="../index.html#projects">Проекты</a>
+          <a class="btn btn--small" href="../index.html#contact">Связаться</a>
+        </nav>
+      </div>
+    </header>
+
+    <main class="container">
+      <article class="project-page reveal">
+        <p class="eyebrow">Python-приложение</p>
+        <h1>Трекер задач</h1>
+        <p>
+          Консольное приложение для списка дел. Можно добавлять задачу,
+          отмечать выполнение, фильтровать по статусу и сохранять данные между
+          запусками.
+        </p>
+        <h2>Как устроено</h2>
+        <ul>
+          <li>Меню в терминале: добавить, показать, закрыть задачу</li>
+          <li>Хранение в JSON-файле, без базы данных</li>
+          <li>Проверки ввода, чтобы программа не падала на пустой строке</li>
+        </ul>
+        <p>
+          Написано на чистом Python. Ссылку на код добавлю вместе с остальными
+          контактами.
+        </p>
+        <a class="btn btn--ghost" href="../index.html#projects">Назад к проектам</a>
+      </article>
+    </main>
+
+    <script src="../js/main.js"></script>
+  </body>
+</html>
